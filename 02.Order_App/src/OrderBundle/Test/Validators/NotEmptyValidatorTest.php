@@ -7,25 +7,23 @@ use OrderBundle\Validators\NotEmptyValidator;
 
 class NotEmptyValidatorTest extends TestCase 
 {
-    public function testShouldNotBeValidWhenValueIsEmpty()
+    /**
+     * @dataProvider valueProvider
+     */
+    public function testIsValid(string $value, bool $expectedResult)
     {
-        $emptyValue = "";
-
-        $notEmptyValidator = new NotEmptyValidator($emptyValue);
+        $notEmptyValidator = new NotEmptyValidator($value);
 
         $isValid = $notEmptyValidator->isValid();
 
-        $this->assertFalse($isValid);
+        $this->assertEquals($expectedResult, $isValid);
     }
 
-    public function testShouldBeValidWhenValueIsNotEmpty()
+    public function valueProvider()
     {
-        $notEmptyValue = "Valid Value";
-
-        $notEmptyValidator = new NotEmptyValidator($notEmptyValue);
-
-        $isValid = $notEmptyValidator->isValid();
-
-        $this->assertTrue($isValid);
+        return [
+            "shouldBeValidWhenValueIsNotEmpty" => ["value" => "Valid Value", "expected" => true],
+            "shouldNotBeValidWhenValueIsEmpty" => ["value" => "", "expectedResult" => false]            
+        ];
     }
 }
