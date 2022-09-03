@@ -10,7 +10,7 @@ class NotEmptyValidatorTest extends TestCase
     /**
      * @dataProvider valueProvider
      */
-    public function testIsValid(string $value, bool $expectedResult)
+    public function testIsValid($value, $expectedResult)
     {
         $notEmptyValidator = new NotEmptyValidator($value);
 
@@ -22,7 +22,7 @@ class NotEmptyValidatorTest extends TestCase
     public function valueProvider()
     {
         return [
-            "shouldBeValidWhenValueIsNotEmpty" => ["value" => "Valid Value", "expected" => true],
+            "shouldBeValidWhenValueIsNotEmpty" => ["value" => "Valid Value", "expectedResult" => true],
             "shouldNotBeValidWhenValueIsEmpty" => ["value" => "", "expectedResult" => false]            
         ];
     }
