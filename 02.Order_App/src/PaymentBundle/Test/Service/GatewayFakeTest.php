@@ -8,7 +8,7 @@ use PaymentBundle\Service\Gateway;
 use MyFramework\HttpClientInterface;
 use MyFramework\LoggerInterface;
 
-class GatewayTest extends TestCase
+class GatewayFakeTest extends TestCase
 {
     public function testShouldNotPayWhenAuthenticationFail()
     {
