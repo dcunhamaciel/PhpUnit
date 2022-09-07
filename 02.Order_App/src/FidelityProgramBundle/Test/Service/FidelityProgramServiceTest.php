@@ -15,17 +15,23 @@ class FidelityProgramServiceTest extends TestCase
         $orderValue = 50;
         $pointsToReceive = 100;
 
-        $pointsRepository = $this->createMock(PointsRepository::class);        
-        $pointsRepository->expects($this->once())->method('save');
+        //$pointsRepository = $this->createMock(PointsRepository::class);        
+        //$pointsRepository->expects($this->once())->method('save');
+
+        // Spy
+        $pointsRepository = new PointsRepositorySpy();
 
         $pointsCalculator = $this->createMock(PointsCalculator::class);
         $pointsCalculator->method('calculatePointsToReceive')->willReturn($pointsToReceive);
 
+        // Dummie
         $customer = $this->createMock(Customer::class);
 
         $fidelityProgramService = new FidelityProgramService($pointsRepository, $pointsCalculator);
 
         $fidelityProgramService->addPoints($customer, $orderValue);
+
+        $this->assertTrue($pointsRepository->called());
     }
 
     public function testShouldNotSaveWhenReceiveZeroPoints()
