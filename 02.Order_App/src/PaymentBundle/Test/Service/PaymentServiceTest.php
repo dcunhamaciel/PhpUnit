@@ -26,12 +26,17 @@ class PaymentServiceTest extends TestCase
     {
         $this->gateway = $this->createMock(Gateway::class);
         $this->paymentTransactionRepository = $this->createMock(PaymentTransactionRepository::class);
-        
+
         $this->paymentService  = new PaymentService($this->gateway, $this->paymentTransactionRepository);
 
         $this->customer = $this->createMock(Customer::class);
         $this->item = $this->createMock(Item::class);
         $this->creditCard = $this->createMock(CreditCard::class);
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->gateway);
     }
 
     public function testShouldSaveWhenGatewayReturnOkWithRetries()
