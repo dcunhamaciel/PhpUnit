@@ -66,7 +66,7 @@ class CustomerCategoryServiceTest extends TestCase
     /**
      * @test
      */
-    public function customerShouldHeavyUser()
+    public function customerShouldBeHeavyUser()
     {
         $customer = new Customer();
         $customer->setTotalOrders(50);
