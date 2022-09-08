@@ -6,9 +6,9 @@ Exemplos e exercícios do curso <b>Testes Unitários e TDD com PHP e PHPUnit</b>
 composer install
 ```
 
-### Executando Testes Unitários
+### Executando Testes Unitários com Coverage
 ```
-vendor\bin\phpunit .\CustomerCategoryServiceTest.php
+vendor\bin\phpunit --coverage-html report/
 ```
 
 ### Executando Teste Unitário Específico
