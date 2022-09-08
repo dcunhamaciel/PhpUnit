@@ -63,7 +63,7 @@ class CustomerCategoryServiceTest extends TestCase
     }
 
     /**
-     * @testS
+     * @test
      */
     public function customerShouldBeHeavyUser(): void
     {
