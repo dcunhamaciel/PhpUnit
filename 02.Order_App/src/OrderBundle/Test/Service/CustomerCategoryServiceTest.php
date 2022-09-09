@@ -12,10 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerCategoryServiceTest extends TestCase
 {
-    private $customerCategoryService;
+    private Customer $customer;
+    private CustomerCategoryService $customerCategoryService;
 
-    public function setup()
+    public function setup(): void
     {
+        $this->customer = new Customer();
         $this->customerCategoryService = new CustomerCategoryService();
         $this->customerCategoryService->addCategory(new HeavyUserCategory());
         $this->customerCategoryService->addCategory(new MediumUserCategory());
@@ -26,10 +28,9 @@ class CustomerCategoryServiceTest extends TestCase
     /**
      * @test
      */
-    public function customerShouldBeNewUser()
+    public function customerShouldBeNewUser(): void
     {
-        $customer = new Customer();
-        $usageCategory = $this->customerCategoryService->getUsageCategory($customer);
+        $usageCategory = $this->customerCategoryService->getUsageCategory($this->customer);
 
         $this->assertEquals(CustomerCategoryService::CATEGORY_NEW_USER, $usageCategory);
     }
@@ -37,13 +38,12 @@ class CustomerCategoryServiceTest extends TestCase
     /**
      * @test
      */
-    public function customerShouldBeLightUser()
+    public function customerShouldBeLightUser(): void
     {
-        $customer = new Customer();
-        $customer->setTotalOrders(5);
-        $customer->setTotalRatings(1);
+        $this->customer->setTotalOrders(5);
+        $this->customer->setTotalRatings(1);
 
-        $usageCategory = $this->customerCategoryService->getUsageCategory($customer);
+        $usageCategory = $this->customerCategoryService->getUsageCategory($this->customer);
 
         $this->assertEquals(CustomerCategoryService::CATEGORY_LIGHT_USER, $usageCategory);
     }
@@ -51,14 +51,13 @@ class CustomerCategoryServiceTest extends TestCase
     /**
      * @test
      */
-    public function customerShouldBeMediumUser()
+    public function customerShouldBeMediumUser(): void
     {
-        $customer = new Customer();
-        $customer->setTotalOrders(20);
-        $customer->setTotalRatings(5);
-        $customer->setTotalRecommendations(1);
+        $this->customer->setTotalOrders(20);
+        $this->customer->setTotalRatings(5);
+        $this->customer->setTotalRecommendations(1);
 
-        $usageCategory = $this->customerCategoryService->getUsageCategory($customer);
+        $usageCategory = $this->customerCategoryService->getUsageCategory($this->customer);
 
         $this->assertEquals(CustomerCategoryService::CATEGORY_MEDIUM_USER, $usageCategory);
     }
@@ -66,14 +65,13 @@ class CustomerCategoryServiceTest extends TestCase
     /**
      * @test
      */
-    public function customerShouldBeHeavyUser()
+    public function customerShouldBeHeavyUser(): void
     {
-        $customer = new Customer();
-        $customer->setTotalOrders(50);
-        $customer->setTotalRatings(10);
-        $customer->setTotalRecommendations(5);
+        $this->customer->setTotalOrders(50);
+        $this->customer->setTotalRatings(10);
+        $this->customer->setTotalRecommendations(5);
 
-        $usageCategory = $this->customerCategoryService->getUsageCategory($customer);
+        $usageCategory = $this->customerCategoryService->getUsageCategory($this->customer);
 
         $this->assertEquals(CustomerCategoryService::CATEGORY_HEAVY_USER, $usageCategory);
     }
